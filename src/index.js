@@ -27,21 +27,15 @@ module.exports = function toReadable(number) {
         let units = number % 10;
         let dozens = Math.trunc(number % 100 / 10);
         let hundreds = Math.trunc(number / 100);
-        
-        if (units === 0) {
-            return `${NUMBERS_1[hundreds]} hundred ${NUMBERS_2[dozens]}`
-        }
+
         if (dozens === 0) {
-            return `${NUMBERS_1[hundreds]} hundred ${NUMBERS_1[units]}`
+            return `${NUMBERS_1[hundreds]} hundred ${units === 0 ? '' : '' + NUMBERS_1[units]}`;
+        } else if (dozens === 1) {
+            return `${NUMBERS_1[hundreds]} hundred ${NUMBERS_1[units + 10]}`;
+        } else {
+
+            return `${NUMBERS_1[hundreds]} hundred ${NUMBERS_2[dozens]}${units === 0 ? '' : ' ' + NUMBERS_1[units]}`;
         }
-        if (dozens === 1) {
-            return `${NUMBERS_1[hundreds]} hundred ${NUMBERS_1[units + 10]}`
-        }
-        if (dozens === 0 || units === 0) {
-            return `${NUMBERS_1[hundreds]} hundred`
-        }
-        return `${NUMBERS_1[hundreds]} hundred ${NUMBERS_2[dozens]} ${NUMBERS_1[units]}`;
+
     }
 }
-
-
