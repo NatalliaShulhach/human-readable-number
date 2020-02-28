@@ -1,26 +1,27 @@
 module.exports = function toReadable(number) {
 
 
-    const NUMBERS_1 = ['zero', 'one', 'two', 'three', 'four', 'five',
+    const NUMBERS = ['zero', 'one', 'two', 'three', 'four', 'five',
         'six', 'seven', 'eight', 'nine', 'ten', 'eleven',
         'twelve', 'thirteen', 'fourteen', 'fifteen',
         'sixteen', 'seventeen', 'eighteen', 'nineteen'
     ];
 
-    const NUMBERS_2 = ['', '', 'twenty', 'thirty', 'forty', 'fifty',
+    const ROUND_NUMBERS = ['', '', 'twenty', 'thirty', 'forty', 'fifty',
         'sixty', 'seventy', 'eighty', 'ninety'
     ];
 
-    if (NUMBERS_1 < 20) {
-        return NUMBERS_1[number];
-
-    } else if (number < 100) {
-        let units = number % 10;
+    if (number < 20) {
+        return NUMBERS[number];
+    } 
+    
+    if (number < 100) {
+    let units = number % 10;
         let dozens = Math.trunc(number / 10);
         if (units === 0) {
-            return `${NUMBERS_1[hundreds]} ${NUMBERS_2[dozens]}`
+            return `${ROUND_NUMBERS[dozens]}`
         }
-        return `${NUMBERS_2[dozens]} ${NUMBERS_1[units]}`
+        return `${ROUND_NUMBERS[dozens]} ${NUMBERS[units]}`
 
     } else if (number < 1000) {
 
@@ -29,12 +30,12 @@ module.exports = function toReadable(number) {
         let hundreds = Math.trunc(number / 100);
 
         if (dozens === 0) {
-            return `${NUMBERS_1[hundreds]} hundred ${units === 0 ? '' : '' + NUMBERS_1[units]}`;
+            return `${NUMBERS[hundreds]} hundred${units === 0 ? '' : ' ' + NUMBERS[units]}`;
         } else if (dozens === 1) {
-            return `${NUMBERS_1[hundreds]} hundred ${NUMBERS_1[units + 10]}`;
+            return `${NUMBERS[hundreds]} hundred ${NUMBERS[units + 10]}`;
         } else {
 
-            return `${NUMBERS_1[hundreds]} hundred ${NUMBERS_2[dozens]}${units === 0 ? '' : ' ' + NUMBERS_1[units]}`;
+            return `${NUMBERS[hundreds]} hundred ${ROUND_NUMBERS[dozens]}${units === 0 ? '' : ' ' + NUMBERS[units]}`;
         }
 
     }
